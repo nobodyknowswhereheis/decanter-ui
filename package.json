@@ -1,0 +1,11 @@
+{
+  "name": "decanter-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "decanter-ui.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jesse Adams",
+  "license": "ISC"
+}
