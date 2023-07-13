@@ -11,18 +11,23 @@ class DecanterUI extends HttpService {
         super(service_bus, class_name);
         var self = this;
         this.static_content = path.resolve('./static');
-        self.registerRoute("GET", "/login_page", self.respondWithLogin, true);
-        self.attachRouter("/", self.router);
+        this.registerRoute("GET", "/login_page", async (req, res, next) => {
+            var fullpath = path.join(self.static_content, '/login.html');
+            return res.status(200).sendFile(fullpath);
+        }, true);
+
+        // dummy page to test is authentication is working.
+        this.registerRoute("GET", "/private_page", async (req, res, next) => {
+            var fullpath = path.join(self.static_content, '/private.html');
+            next();
+            return res.status(200).sendFile(fullpath);
+        }, false);
+        this.attachRouter("/", self.router);
     }
     respondWith404(req, res, next) {
         var fullpath = path.join(this.static_content, '/404.html');
         return res.status(404).sendFile(fullpath);
     }
-    async respondWithLogin(req, res, next, self) {
-        var fullpath = path.join(self.static_content, '/login.html');
-        return res.status(200).sendFile(fullpath);
-    }
-
 
 }
 module.exports = DecanterUI;
